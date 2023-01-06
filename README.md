@@ -95,7 +95,8 @@ When writing PowerShell functions, you should follow the proper casing structure
 > ❌ `get-widgEts`
 
 #### Example 2
-When creating a new piece of code or updating existing code, work should always be done against an issue with an associated branch.
+When creating a new piece of code or updating existing code, developers should always work against an issue with an associated branch.
+
 > ❓ What if there isn't an existing issue for my work?
 >
 > 💡 Create one! Issues allow proposed changes to have their own conversations, and will also allow linking to issues across repos.

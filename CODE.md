@@ -18,7 +18,7 @@ Your code should accomplish the task it was written for. A developer can manage 
 > 
 > ❌ Nathan develops the feature along with another optional parameter: `-Hotdog`. This parameter changes all of the hambuger emojis to hot dog emojis (🌭). Because the entire Get-Hamburger project is centered around hamburgers, this was an inappropriate addition. He should have created a new project for `Get-HotDog` instead.
 >
-> ❌ Nathan develops the feature and puts in a pull request. The reviewer finds that Nathan's code ignores the `-Count` parameter and prints out a vertical line of hamburgers equal to the `-Height` parameter. This was not the intention of the request was, and the PR was sent back to Nathan with changes requested.
+> ❌ Nathan develops the feature and puts in a pull request. The reviewer finds that Nathan's code ignores the `-Count` parameter and prints out a vertical line of hamburgers equal to the `-Height` parameter. This was not the intention of the request, and the PR was sent back to Nathan with changes requested.
 >
 > ❌ Nathan develops the feature along with another optional parameter: `-Cheese`. This parameter adds a cheese emoji (🧀) next to all of the hambuger emojis. Because chesse is indeed related to a project centered around hamburgers, this was an appropriate addition, but not for this issue. He should have created a new issue and branch for adding this feature instead.
 
@@ -30,6 +30,7 @@ Your code should accomplish the task it was written for. A developer can manage 
 
 ## Readability
 
-## 
+## Security
+[//]: # "Avoiding injection"
 
 [//]: # "https://www.youtube.com/watch?v=CFRhGnuXG-4 Use this video somewhere"

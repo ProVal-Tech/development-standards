@@ -81,7 +81,30 @@ Goal: 1
 ```
 
 ## Bug Remediation and Prevalence
+When we write code, attention to detail and foresight is very important. Stopping to think about what *could* happen is an important part of the development process, and squashes many bugs before they hit production systems. Working with the requestor to make sure our content is working as intended is another important step to prevent bugs at a larger scale.
 
+That being said, no one is perfect, and we don't expect zero mistakes to be made. However, we want to limit them as much as possible and look for areas of improvement when a team member's code has bugs that could have been caught pre-deployment. These metrics are intended to encourage mindfulness when writing our content.
+
+|                 KPI                 | Time frame | Goal  |
+| :---------------------------------: | :--------: | :---: |
+|  [Bug Prevalence](#bug-prevalence)  |  Monthly   |  < 3  |
+| [Bugs Remediated](#bugs-remediated) |  Monthly   |   2   |
+
+### Bug Prevalence
+The number of bug reports received on content developed by a DevOps team member.
+> 🚧 This metric is based on anecdotal data and may change.
+```
+Time frame measured: Monthly
+Goal: < 3
+```
+
+### Bugs Remediated
+The number of bug reports resolved by a DevOps team member.
+> 🚧 This metric is based on anecdotal data and may change.
+```
+Time frame measured: Monthly
+Goal: 2
+```
 
 ## Request Backlog
 

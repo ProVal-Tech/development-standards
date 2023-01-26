@@ -114,6 +114,6 @@ When creating a new piece of code or updating existing code, developers should a
 |   💡   | Answer to a common question about a standard         |
 |   ❗   | Important note to consider before continuing to read |
 |   ↩️   | Redirection to another part of the documentation     |
-|   🚧   | Standard is currently under constuction              |
+|   🚧   | Standard is currently under construction             |
 |   ⚔️   | Standard is being debated                            |
 |   🔎   | A case study example                                 |

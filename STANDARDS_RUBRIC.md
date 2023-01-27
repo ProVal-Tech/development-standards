@@ -26,6 +26,7 @@ Explanations of the different grading categories can be found in this repo:
 
 - [Functionality](CODE.md#functionality)
 - [Validation](CODE.md#validation)
+- [Composition](CODE.md#composition)
 - [Readability](CODE.md#readability)
 - [Security](CODE.md#security)
 - Language Specific

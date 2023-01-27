@@ -1,4 +1,3 @@
-> 🚧 This document is under construction!
 # ProVal Development Standards Rubric
 
 This is the general grading guide for auditing content developed by the Development team. The grading process goes as follows:
@@ -18,9 +17,9 @@ A deviation is detected when the auditor thinks that a part of code or documenta
 |               --- |               |            |             |             |          |                   |         |
 |  *Possible Score* |      0-5      |    0-5     |    0-10     |    0-10     |   0-10   |       0-10        |  0-50   |
 
-|                  Deviation                  |            Verification            |
-| :-----------------------------------------: | :--------------------------------: |
-| Short explanation of the possible deviation | Reference to the standard violated |
+|           Category            |                  Deviation                  |            Verification            |                 Point Loss                  |
+| :---------------------------: | :-----------------------------------------: | :--------------------------------: | :-----------------------------------------: |
+| The category of the deviation | Short explanation of the possible deviation | Reference to the standard violated | The number of points lost for the violation |
 
 ## Categories
 Explanations of the different grading categories can be found in this repo:

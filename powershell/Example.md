@@ -29,17 +29,17 @@ The smallest random number to generate.
 ### `-End`
 The largest random number to generate.
 
-| Alias | Required | Default Value |  Type   |
-| :---: | :------: | :-----------: | :-----: |
-| `-e`  |   True   |               | `[int]` |
+| Aliases | Required | Default Value |  Type   |
+| :-----: | :------: | :-----------: | :-----: |
+|  `-e`   |   True   |               | `[int]` |
 
 ---
 ### `-Count`
 The number of random numbers to generate.
 
-| Alias | Required | Default Value |  Type   |
-| :---: | :------: | :-----------: | :-----: |
-|       |  False   |       5       | `[int]` |
+| Aliases | Required | Default Value |  Type   |
+| :-----: | :------: | :-----------: | :-----: |
+|         |  False   |       5       | `[int]` |
 
 
 ## Output

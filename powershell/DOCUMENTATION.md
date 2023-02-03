@@ -72,9 +72,9 @@ Description of Parameter 1
 #### `-Parameter2`
 Description of Parameter 2
 
-| Alias | Required | Default Value |          Type          |
-| :---: | :------: | :-----------: | :--------------------: |
-| `-p2` |   True   |               | `[System.IO.FileInfo]` |
+| Aliases | Required | Default Value |          Type          |
+| :-----: | :------: | :-----------: | :--------------------: |
+|  `-p2`  |   True   |               | `[System.IO.FileInfo]` |
 
 ### Output
 List the type of objects, if any, the script outputs and the location of any log messages. This can also include additional output locations like tables or registry locations.

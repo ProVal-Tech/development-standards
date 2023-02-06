@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ScExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.kaseya.com/vsa/2008/12/Scripting">
+  <Procedure name="Agent Procedure Best Practice Guide" treePres="3" id="1205778774" folderId="279511446775641" treeFullPath="Development.Dev Tools">
+    <Body description="">
+      <Statement description="   Set your Environment folder variable at the beginning of the script." name="GetVariable" continueOnFail="false">
+        <Parameter xsi:type="EnumParameter" name="VariableType" value="ConstantValue" />
+        <Parameter xsi:type="StringParameter" name="SourceContent" value="%HOMEDRIVE%\ProgramData\_automation\Procedures\Agent Procedure Best Practice Guide" />
+        <Parameter xsi:type="StringParameter" name="VariableName" value="workingDirectory" />
+      </Statement>
+      <If description="Check if the file you plan to download, or files that your script will create, already exist on the endpoint.">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\exampleendpointfile.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\exampleendpointfile.txt" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript.ps1" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript.ps1" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-log.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-log.txt" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-data.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-data.txt" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-error.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-error.txt" />
+          </Statement>
+        </Then>
+      </If>
+      <Statement description="Download the files you need to the working directory. Avoid using Managed Files as much as possible. Source external files from vendor website or the ProVal File Repository." name="GetURL" continueOnFail="false">
+        <Parameter xsi:type="StringParameter" name="URL" value="https://file.provaltech.com/repo/script/exampleendpointfile.txt" />
+        <Parameter xsi:type="StringParameter" name="ResponseFileName" value="#workingDirectory#\exampleendpointfile.txt" />
+        <Parameter xsi:type="BooleanParameter" name="WaitComplete" value="False" />
+      </Statement>
+      <Statement name="GetURL" continueOnFail="false">
+        <Parameter xsi:type="StringParameter" name="URL" value="https://file.provaltech.com/repo/script/Invoke-ExampleProcedureScript.ps1" />
+        <Parameter xsi:type="StringParameter" name="ResponseFileName" value="#workingDirectory#\Invoke-ExampleProcedureScript.ps1" />
+        <Parameter xsi:type="BooleanParameter" name="WaitComplete" value="False" />
+      </Statement>
+      <Statement description="Perform your logic. &#xD;&#xA;// Powershell scripts should be run using executePowershellCommand64BitSystem unless absolutely necessary.&#xD;&#xA;//Powershell commands should ALWAYS set Return Results flag to 'True.'" name="Execute Powershell Command (64-bit, Run As System)" continueOnFail="false">
+        <Parameter xsi:type="StringParameter" name="Parameter1" value="#workingDirectory#\Invoke-ExampleProcedureScript.ps1" />
+        <Parameter xsi:type="StringParameter" name="Parameter2" value="" />
+        <Parameter xsi:type="StringParameter" name="Parameter3" value="True" />
+      </Statement>
+      <If description="// Get output from a standard ProVal PS1 Script by using getVariable &gt; File Content. Logs will always be in the root script. Logs will always be named &lt;SCRIPT&gt;-log.tct, -DATA.txt, or -ERROR.txt. Always check for a file before loading it into a variable.">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-log.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="GetVariable" continueOnFail="false">
+            <Parameter xsi:type="EnumParameter" name="VariableType" value="FileContent" />
+            <Parameter xsi:type="StringParameter" name="SourceContent" value="#workingDirectory#\Invoke-ExampleProcedureScript-log.txt" />
+            <Parameter xsi:type="StringParameter" name="VariableName" value="log" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-data.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="GetVariable" continueOnFail="false">
+            <Parameter xsi:type="EnumParameter" name="VariableType" value="FileContent" />
+            <Parameter xsi:type="StringParameter" name="SourceContent" value="#workingDirectory#\Invoke-ExampleProcedureScript-DATA.txt" />
+            <Parameter xsi:type="StringParameter" name="VariableName" value="data" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript-error.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement description="If the error file exists, It should be handled here." name="GetVariable" continueOnFail="false">
+            <Parameter xsi:type="EnumParameter" name="VariableType" value="FileContent" />
+            <Parameter xsi:type="StringParameter" name="SourceContent" value="#workingDirectory#\Invoke-ExampleProcedureScript-ERROR.txt" />
+            <Parameter xsi:type="StringParameter" name="VariableName" value="error" />
+          </Statement>
+          <Statement name="WriteScriptLogEntry" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Comment" value="An Error occurred: #error#" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="Cleanup&#xD;&#xA;//Always remove any non-log files from the endpoint after runtime. Afterwards, all that should be left on the endpoint is the new folder, and the log files generated during run time. Remember, always TestFile before performing actions on them.">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\exampleendpointfile.txt" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\exampleendpointfile.txt" />
+          </Statement>
+        </Then>
+      </If>
+      <If description="">
+        <Condition name="TestFile">
+          <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript.ps1" />
+          <Parameter xsi:type="EnumParameter" name="Condition" value="Exists" />
+          <Parameter xsi:type="StringParameter" name="Value" value="" />
+        </Condition>
+        <Then>
+          <Statement name="DeleteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="#workingDirectory#\Invoke-ExampleProcedureScript.ps1" />
+          </Statement>
+        </Then>
+      </If>
+    </Body>
+  </Procedure>
+</ScExport>

@@ -35,78 +35,75 @@ The beginning of the agent procedure should prepare the script engine and endpoi
    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("Constant Value", "#drive#\ProgramData\_automation\AgentProcedure\[ProcedureNameNoSpaces]", "directory")
    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>(" ", "New-Item -Type Directory -Path #drive#ProgramData\_automation\AgentProcedure -Name [ProcedureNameNoSpaces] -ErrorAction SilentlyContinue")
    </pre>
-<br>
+
 
 1. Download any external resources needed.
     > ❗Use the built-in methods for file acquisition whenever possible to reduce script engine overhead.
 
-    <code>
-    ✅ <a href ="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4909.htm">getURL</a>("https:\\file.provaltech.com\repo\script\Get-Educated.ps1", "#directory#\Get-Educated.ps1", "All Operating Systems", "Halt on Fail")<br><br>
+    <pre>
+    ✅ <a href ="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4909.htm">getURL</a>("https:\\file.provaltech.com\repo\script\Get-Educated.ps1", "#directory#\Get-Educated.ps1", "All Operating Systems", "Halt on Fail")
 
-    ✅ <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4923.htm">writeFile</a>("ManagedFile.ps1", "#directory#\ManagedFile.ps1", "All Operating Systems", "Halt on Fail")<br><br>
-
-    ❌ <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","Invoke-WebRequest -Uri https:\\dontdo.this -Path #directory#\dontdo.this)<br><br>
-    </code>
+    ✅ <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4923.htm">writeFile</a>("ManagedFile.ps1", "#directory#\ManagedFile.ps1", "All Operating Systems", "Halt on Fail")
+    ❌ <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","Invoke-WebRequest -Uri https:\\dontdo.this -Path #directory#\dontdo.this)
+    </pre>
     > ❗ Be sure to check that your files were successfully deposited on the endpoint. Perform your logic within the **Then** block. Your **Else** blocks should always be your failure case and be at the end of the procedure.
 
-    <code>
+    <pre>
     ✅
-    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4890.htm">testFile</a>("#directory#\Get-Educated.ps1") Exists<br>
-        &nbsp;&nbsp;&nbsp;[Perform Script Logic]<br>
-    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a> <br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a> ("The script failed to acquire the required resource. Exiting.")<br><br>
-    </code>
-
+    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4890.htm">testFile</a>("#directory#\Get-Educated.ps1") Exists
+        [Perform Script Logic]
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a> 
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a> ("The script failed to acquire the required resource. Exiting.")
+    </pre>
 ### ***Logic***
 #### **Nesting**
 Unlike other languages, VSA Agent Procedure scripting requires extensive nesting for more complicated logical processes. Try to limit excessive nesting as much as possible while still accomplishing the goal of the script.
 
-Nesting can sometimes be avoided through the use of ```#Global:Variables#``` as a flag of sorts:<br>
-    <code>
-    ✅<br>
-    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("1","Global:InstallFlag")<br>
-    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4890.htm">testFile</a>("install.msi") Does Not Exist<br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("0","Global:InstallFlag)<br>
-    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7877.htm">getOS</a>() 32-Bit Windows<br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("0","Global:InstallFlag)<br>
-    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4887.htm">checkVar</a>(#Global:InstallFlag#) Is Equal To "1"<br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7864.htm">installMSI</a>("install.msi")<br>
-    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a><br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Installation Pre-checks did not pass.")<br><br>
-    ❌<br>
-    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4890.htm">testFile</a>("install.msi") Exists<br>
-        &nbsp;&nbsp;&nbsp;if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7877.htm">getOS</a>() 64-Bit Windows<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7864.htm">installMSI</a>("install.msi")<br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a><br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Installation Pre-checks did not pass.")<br>
-    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a><br>
-        &nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Installation Pre-checks did not pass.")<br>
-    </code><br><br>
+Nesting can sometimes be avoided through the use of ```#Global:Variables#``` as a flag of sorts:
+- <pre>
+    ✅
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("1","Global:InstallFlag")
+    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4890.htm">testFile</a>("install.msi") Does Not Exist
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("0","Global:InstallFlag)
+    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7877.htm">getOS</a>() 32-Bit Windows
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("0","Global:InstallFlag)
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4887.htm">checkVar</a>(#Global:InstallFlag#) Is Equal To "1"
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7864.htm">installMSI</a>("install.msi")
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a>
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Installation Pre-checks did not pass.")
+    ❌
+    if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4890.htm">testFile</a>("install.msi") Exists
+        if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7877.htm">getOS</a>() 64-Bit Windows
+            <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7864.htm">installMSI</a>("install.msi")
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a>
+            <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Installation Pre-checks did not pass.")
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a>
+        <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Installation Pre-checks did not pass.")
+    </pre>
 #### **Escaping**
 VSA runs almost all logic through a bash or cmd engine, and includes double-quotes in any console command passed through the script. Because of this, special care has to be taken when passing Shell and PowerShell commands directly through the script.
-- PowerShell commands with double quotes *within the command* must be **triple** escaped. Try to use single quotes whenever possible.<br><br>
-<code>
-✅<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","Get-ChildItem -Path 'my stuff'")<br>
-❌<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","Get-ChildItem -Path "my stuff"")<br>
-✅<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","$Get-ChildItem -Path """"my stuff"""" ")<br>
-<br>
-</code>
+- PowerShell commands with double quotes *within the command* must be **triple** escaped. Try to use single quotes whenever possible.
+<pre>
+✅<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","Get-ChildItem -Path 'my stuff'")
+❌<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","Get-ChildItem -Path "my stuff"")
+✅<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7853.htm">executePowershell</a>("","$Get-ChildItem -Path """"my stuff"""" ")
+</pre>
 - Shell Commands run within the procedure can be escaped using standard bash escape sequences, with no additional escape needed.
 
 Always be mindful of when VSA will encapsulate your statement within a set of double-quotes, and plan accordingly.
 
 #### **Comments**
 Keep your comments to a minimum within the Agent Procedure. Not only should your code explain itself in most cases, a current VSA memory leak causes a crash in performance when too many comments exist in the script.
-If you must comment your procedure, you can do so with a double-forward-slash.<br>
-<code>
+If you must comment your procedure, you can do so with a double-forward-slash.
+<pre>
 // this is a comment
-</code><br>
+</pre>
 ### ***Sanity Checking***
 Your code should check to ensure that it's main goal succeeded after the main logic, and report to the Procedure Log (or terminate) otherwise. 
-<br><br>
-<code>
-<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7864.htm">installMSI</a>(installer.msi)<br>
-if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4889.htm">isServiceRunning</a>("installed application service")<br>
-&nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Application Installed Successfully")<br>
-<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a><br>
-&nbsp;&nbsp;&nbsp;<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("ERROR: Application Failed to Install")<br>
+<pre>
+<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#7864.htm">installMSI</a>(installer.msi)
+if <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4889.htm">isServiceRunning</a>("installed application service")
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("Application Installed Successfully")
+<a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#10548.htm">else</a>
+    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4925.htm">writeProcedureLogEntry</a>("ERROR: Application Failed to Install")
+</pre>

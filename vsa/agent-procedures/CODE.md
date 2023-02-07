@@ -29,8 +29,6 @@ The beginning of the agent procedure should prepare the script engine and endpoi
 
 2. Prepare the working directory (If applicable)
     > ❗The standard endpoint directory for ProVal file storage is *%ProgramData%\\\_automation\AgentProcedure\ProcedureNameNoSpaces*
-
-
    <code>
    ✅<br>
    <a href="https://help.kaseya.com/WebHelp/EN/VSA/9050000/#4910.htm">getVariable</a>("Agent Install Drive", "", "drive")<br>

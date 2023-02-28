@@ -12,8 +12,8 @@ A deviation is detected when the auditor thinks that a part of code or documenta
 ## Rubric
 |                   | Functionality | Validation | Composition | Readability | Security | Language Specific | *Total* |
 | ----------------: | :-----------: | :--------: | :---------: | :---------: | :------: | :---------------: | :-----: |
-|          **Code** |      0-5      |    0-5     |     0-5     |     0-5     |   0-5    |       0-10        |  0-35   |
-| **Documentation** |       -       |     -      |     0-5     |     0-5     |   0-5    |         -         |  0-15   |
+|          **Code** |      0-5      |    0-5     |     0-5     |     0-5     |   0-5    |       0-5         |  0-35   |
+| **Documentation** |       -       |     -      |     0-5     |     0-5     |   0-5    |       0-5         |  0-15   |
 |               --- |               |            |             |             |          |                   |         |
 |  *Possible Score* |      0-5      |    0-5     |    0-10     |    0-10     |   0-10   |       0-10        |  0-50   |
 

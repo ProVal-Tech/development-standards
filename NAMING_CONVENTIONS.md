@@ -4,19 +4,19 @@ flowchart TD
 
     A[Creating Content] --- B{Is it a PowerShell script?}
 
-    B ---|Yes| C[Use PowerShell Naming:<br>Verb-Noun]
-    C --- CEx[/Restart-Service -IfHung/]
+    B ---|Yes| C[Format:<br>Verb-Noun]
+    C --- CEx[/Restart-Service/]
 
     B ---|No| D{Is it an RMM script?}
-    D ---|Yes| E[Use Action-Based Naming:<br>Action - Target - Scope/Qualifier]
-    E --- EEx[/Install Chrome - All Users/]
+    D ---|Yes| E[Format:<br>Action - Target - Scope/Qualifier]
+    E --- EEx[/Restart Service - Windows/]
 
     D ---|No| F{Is it a Report or Dataview?}
-    F ---|Yes| G[Use Structured Naming:<br>Focus Area - Detail/Filter - Scope]
-    G --- GEx[/Patch Compliance - Missing Updates - ClientX/]
+    F ---|Yes| G[Format:<br>Focus Area - Detail/Filter - Scope]
+    G --- GEx[/Windows Services - Stopped - Servers/]
 
-    F ---|No| H[Use Monitor Format:<br>Condition - Trigger - Target/Scope - Severity]
-    H --- HEx[/Disk Space Low - Below 10% - System Drive - Critical/]
+    F ---|No| H[Format:<br>Condition - Trigger - Target/Scope]
+    H --- HEx[/Service Stopped - Print Spooler - Servers/]
     classDef dotted stroke-width:2px,color:#fff,stroke-dasharray:5 5
     class CEx,EEx,GEx,HEx dotted
 ```
@@ -73,21 +73,21 @@ Verb-Noun [-Qualifier] [-Target]
 **Format:**
 
 ```
-[Condition] - [Trigger/Threshold] - [Target/Scope] - [Severity/Action]
+[Condition] - [Trigger/Threshold] - [Target/Scope]
 ```
 
 **Examples:**
 
-* `Disk Space Low - Below 10% - System Drive - Critical`
+* `Disk Space Low - Below 10% - System Drive`
 * `Service Stopped - Print Spooler`
-* `Login Failures - Excessive - RDP - Warning`
+* `Login Failures - Excessive - RDP`
 * `Patch Window Missed - All Workstations`
 
 ## 🧾 Quick Reference Summary
 
-| Content Type    | Format Template                                                          | Example                                       |
-| --------------- | ------------------------------------------------------------------------ | --------------------------------------------- |
-| **PowerShell**  | `Verb-Noun [-Qualifier] [-Target]`                                       | `Remove-TempFiles`, `Set-TimeZone -UTC`       |
-| **RMM Script**  | `[Action] - [Target] - [Scope/Qualifier]`                                | `Install Chrome - All Users`                  |
-| **Report/View** | `[Focus Area] - [Detail/Filter] - [Scope]`                               | `Asset Inventory - Workstations`              |
-| **Monitor**     | `[Condition] - [Trigger/Threshold] - [Target/Scope] - [Severity/Action]` | `CPU Usage High - 95% - 5 Min Avg - Critical` |
+| Content Type    | Format Template                                      | Example                                 |
+| --------------- | ---------------------------------------------------- | --------------------------------------- |
+| **PowerShell**  | `Verb-Noun [-Qualifier] [-Target]`                   | `Remove-TempFiles`, `Set-TimeZone -UTC` |
+| **RMM Script**  | `[Action] - [Target] - [Scope/Qualifier]`            | `Install Chrome - All Users`            |
+| **Report/View** | `[Focus Area] - [Detail/Filter] - [Scope]`           | `Asset Inventory - Workstations`        |
+| **Monitor**     | `[Condition] - [Trigger/Threshold] - [Target/Scope]` | `CPU Usage High - 95% - 5 Min Avg`      |
